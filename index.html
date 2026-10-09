@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Mini App</title>
+    <!-- Подключение скрипта Telegram для синхронизации темы -->
+    <script src="https://telegram.org"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #222222);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0 0 10px;
+            color: var(--tg-theme-text-color, #222222);
+        }
+
+        p {
+            font-size: 16px;
+            margin: 0 0 25px;
+            color: var(--tg-theme-hint-color, #777777);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="avatar" id="user-letter">👋</div>
+        <h1 id="greeting">Привет!</h1>
+        <p id="description">Добро пожаловать в ваше новое приложение внутри Telegram. Этот сайт автоматически подстраивается под цвета вашего мессенджера.</p>
+        
+        <button class="btn" id="main-action">Главное действие</button>
+    </div>
+
+    <script>
+        // Инициализация Telegram Web App
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Развернуть на весь экран в ТГ
+
+        // Извлечение имени пользователя из ТГ (если доступно)
+        // [Интерпретировано]: Объект initDataUnsafe может быть пустым в обычном браузере, проверяем наличие данных.
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            const user = tg.initDataUnsafe.user;
+            document.getElementById('greeting').innerText = `Привет, ${user.first_name}!`;
+            if (user.first_name) {
+                document.getElementById('user-letter').innerText = user.first_name.charAt(0).toUpperCase();
+            }
+        }
+
+        // Действие при клике на кнопку
+        document.getElementById('main-action').addEventListener('click', () => {
+            tg.showAlert('Вы нажали главную кнопку приложения!');
+        });
+    </script>
+</body>
+</html>
