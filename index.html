@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App</title>
+    <title>Мои Соцсети</title>
     <!-- Подключение скрипта Telegram для синхронизации темы -->
     <script src="https://telegram.org"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #222222);
+            /* Установка вашей картинки на фон всего сайта */
+            background-image: url('https://akamaihd.net');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -21,11 +25,18 @@
             text-align: center;
         }
 
+        /* Полупрозрачный блок-карточка, чтобы текст легко читался на фоне */
         .container {
             max-width: 400px;
             width: 100%;
-            padding: 20px;
+            padding: 30px 20px;
             box-sizing: border-box;
+            background-color: rgba(23, 23, 28, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         .avatar {
@@ -40,70 +51,78 @@
             font-size: 32px;
             font-weight: bold;
             margin: 0 auto 15px;
+            box-shadow: 0 4px 15px rgba(36, 129, 204, 0.4);
         }
 
         h1 {
             font-size: 24px;
-            margin: 0 0 10px;
-            color: var(--tg-theme-text-color, #222222);
+            margin: 0 0 5px;
+            color: #ffffff; /* Белый цвет заголовка для контраста */
         }
 
-        p {
-            font-size: 16px;
+        .username {
+            font-size: 14px;
             margin: 0 0 25px;
-            color: var(--tg-theme-hint-color, #777777);
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        .btn {
-            display: block;
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
             padding: 14px;
-            background-color: var(--tg-theme-button-color, #2481cc);
-            color: var(--tg-theme-button-text-color, #ffffff);
-            border: none;
-            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
             text-decoration: none;
             box-sizing: border-box;
+            transition: all 0.2s ease;
         }
 
-        .btn:active {
-            opacity: 0.8;
+        /* Эффект при наведении или нажатии в ТГ */
+        .btn-link:active {
+            background-color: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border-color: transparent;
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="avatar" id="user-letter">👋</div>
-        <h1 id="greeting">Привет!</h1>
-        <p id="description">Добро пожаловать в ваше новое приложение внутри Telegram. Этот сайт автоматически подстраивается под цвета вашего мессенджера.</p>
+        <div class="avatar" id="user-letter">🎮</div>
+        <h1 id="greeting">Мои контакты</h1>
+        <div class="username">Связь со мной в один клик</div>
         
-        <button class="btn" id="main-action">Главное действие</button>
+        <!-- Блок со ссылками -->
+        <div class="links-list">
+            <a href="https://t.me" target="_blank" class="btn-link">✈️ Мой Telegram</a>
+            <a href="https://discord.com" target="_blank" class="btn-link">💬 Мой Discord</a>
+            <a href="https://steamcommunity.com" target="_blank" class="btn-link">🕹️ Мой Steam профиль</a>
+        </div>
     </div>
 
     <script>
-        // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Развернуть на весь экран в ТГ
+        tg.expand();
 
-        // Извлечение имени пользователя из ТГ (если доступно)
-        // [Интерпретировано]: Объект initDataUnsafe может быть пустым в обычном браузере, проверяем наличие данных.
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             const user = tg.initDataUnsafe.user;
-            document.getElementById('greeting').innerText = `Привет, ${user.first_name}!`;
-            if (user.first_name) {
-                document.getElementById('user-letter').innerText = user.first_name.charAt(0).toUpperCase();
-            }
+            document.getElementById('greeting').innerText = `${user.first_name}`;
         }
-
-        // Действие при клике на кнопку
-        document.getElementById('main-action').addEventListener('click', () => {
-            tg.showAlert('Вы нажали главную кнопку приложения!');
-        });
     </script>
 </body>
 </html>
