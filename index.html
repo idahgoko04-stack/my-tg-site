@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мои Соцсети</title>
-    <!-- Подключение скрипта Telegram для синхронизации темы -->
     <script src="https://telegram.org"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            /* Основной фон из Steam + резервный темно-серый градиент, если Telegram заблокирует внешнюю картинку */
-            background: #121214 url('https://akamaihd.net') no-repeat center center fixed;
+            /* Изменено: теперь используется локальный файл bg.png из вашего репозитория */
+            background: #121214 url('bg.png') no-repeat center center fixed;
             background-size: cover;
             margin: 0;
             padding: 20px;
@@ -22,7 +21,6 @@
             text-align: center;
         }
 
-        /* Стильная полупрозрачная карточка для кнопок */
         .container {
             max-width: 400px;
             width: 100%;
@@ -103,10 +101,9 @@
         <h1 id="greeting">Мои контакты</h1>
         <div class="username">Связь со мной в один клик</div>
         
-        <!-- Блок со всеми вашими обновленными ссылками -->
         <div class="links-list">
-            <a href="https://t.me/whywhenwhy" target="_blank" class="btn-link">✈️ Мой Telegram</a>
-            <a href="https://discord.com/vlastik5884" target="_blank" class="btn-link">💬 Мой Discord</a>
+            <a href="https://t.me" target="_blank" class="btn-link">✈️ Мой Telegram</a>
+            <a href="https://discord.com" target="_blank" class="btn-link">💬 Мой Discord</a>
             <a href="https://steamcommunity.com" target="_blank" class="btn-link">🕹️ Мой Steam профиль</a>
         </div>
     </div>
